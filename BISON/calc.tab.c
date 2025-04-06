@@ -71,20 +71,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 
-extern int yylex();
-extern int yyparse();
-extern FILE *yyin;
-void yyerror(const char *s);
-
-clock_t start_time, end_time;
-double execution_time;
-double resultado;
-
-
-#line 88 "calc.tab.c"
+#line 77 "calc.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -115,16 +104,10 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_NUM = 3,                        /* NUM  */
-  YYSYMBOL_4_ = 4,                         /* '+'  */
-  YYSYMBOL_5_ = 5,                         /* '-'  */
-  YYSYMBOL_6_ = 6,                         /* '*'  */
-  YYSYMBOL_7_ = 7,                         /* '/'  */
-  YYSYMBOL_UMINUS = 8,                     /* UMINUS  */
-  YYSYMBOL_9_ = 9,                         /* '('  */
-  YYSYMBOL_10_ = 10,                       /* ')'  */
-  YYSYMBOL_YYACCEPT = 11,                  /* $accept  */
-  YYSYMBOL_expr = 12                       /* expr  */
+  YYSYMBOL_A = 3,                          /* A  */
+  YYSYMBOL_B = 4,                          /* B  */
+  YYSYMBOL_YYACCEPT = 5,                   /* $accept  */
+  YYSYMBOL_S = 6                           /* S  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -450,18 +433,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  7
+#define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   29
+#define YYLAST   3
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  11
+#define YYNTOKENS  5
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  8
+#define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  17
+#define YYNSTATES  6
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   259
@@ -482,7 +465,6 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       9,    10,     6,     4,     2,     5,     2,     7,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -503,14 +485,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     8
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    32,    32,    33,    34,    35,    36,    37,    38
+       0,    10,    10
 };
 #endif
 
@@ -526,8 +509,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "NUM", "'+'", "'-'",
-  "'*'", "'/'", "UMINUS", "'('", "')'", "$accept", "expr", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "A", "B", "$accept",
+  "S", YY_NULLPTR
 };
 
 static const char *
@@ -537,7 +520,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-5)
+#define YYPACT_NINF (-4)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -551,8 +534,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      20,    -5,    20,    20,    10,    -5,    14,    -5,    20,    20,
-      20,    20,    -5,    -4,    -4,    -5,    -5
+      -3,    -2,     1,     0,    -4,    -4
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -560,20 +542,19 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     8,     0,     0,     0,     6,     0,     1,     0,     0,
-       0,     0,     7,     2,     3,     4,     5
+       0,     0,     0,     0,     1,     2
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -2
+      -4,    -4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     4
+       0,     2
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -581,36 +562,31 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       5,     6,    10,    11,     0,     0,    13,    14,    15,    16,
-       7,     0,     0,     0,     8,     9,    10,    11,     8,     9,
-      10,    11,     0,     1,    12,     2,     0,     0,     0,     3
+       1,     4,     3,     5
 };
 
 static const yytype_int8 yycheck[] =
 {
-       2,     3,     6,     7,    -1,    -1,     8,     9,    10,    11,
-       0,    -1,    -1,    -1,     4,     5,     6,     7,     4,     5,
-       6,     7,    -1,     3,    10,     5,    -1,    -1,    -1,     9
+       3,     0,     4,     3
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     5,     9,    12,    12,    12,     0,     4,     5,
-       6,     7,    10,    12,    12,    12,    12
+       0,     3,     6,     4,     0,     3
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    12,    12,    12,    12,    12,    12
+       0,     5,     6
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     3,     3,     3,     3,     2,     3,     1
+       0,     2,     3
 };
 
 
@@ -1073,50 +1049,14 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* expr: expr '+' expr  */
-#line 32 "calc.y"
-                  { (yyval.num) = (yyvsp[-2].num) + (yyvsp[0].num); }
-#line 1080 "calc.tab.c"
-    break;
-
-  case 3: /* expr: expr '-' expr  */
-#line 33 "calc.y"
-                  { (yyval.num) = (yyvsp[-2].num) - (yyvsp[0].num); }
-#line 1086 "calc.tab.c"
-    break;
-
-  case 4: /* expr: expr '*' expr  */
-#line 34 "calc.y"
-                  { (yyval.num) = (yyvsp[-2].num) * (yyvsp[0].num); }
-#line 1092 "calc.tab.c"
-    break;
-
-  case 5: /* expr: expr '/' expr  */
-#line 35 "calc.y"
-                  { (yyval.num) = (yyvsp[-2].num) / (yyvsp[0].num); }
-#line 1098 "calc.tab.c"
-    break;
-
-  case 6: /* expr: '-' expr  */
-#line 36 "calc.y"
-                          { (yyval.num) = -(yyvsp[0].num); }
-#line 1104 "calc.tab.c"
-    break;
-
-  case 7: /* expr: '(' expr ')'  */
-#line 37 "calc.y"
-                 { (yyval.num) = (yyvsp[-1].num); }
-#line 1110 "calc.tab.c"
-    break;
-
-  case 8: /* expr: NUM  */
-#line 38 "calc.y"
-        { (yyval.num) = (yyvsp[0].num); }
-#line 1116 "calc.tab.c"
+  case 2: /* S: A B A  */
+#line 10 "calc.y"
+          { printf("Cadena aceptada\n"); }
+#line 1056 "calc.tab.c"
     break;
 
 
-#line 1120 "calc.tab.c"
+#line 1060 "calc.tab.c"
 
       default: break;
     }
@@ -1309,54 +1249,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 41 "calc.y"
+#line 12 "calc.y"
 
 
-void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
-}
-
-int main() {
-    FILE *file = fopen("bison_tiempos.txt", "w");
-    if (!file) {
-        perror("Error al abrir el archivo");
-        return 1;
-    }
-
-    // Ejemplos de expresiones matemáticas
-    char *ejemplos[] = {"3 + 5", "7 - 2 * 3", "(4 + 5) * 2", "10 / 2 + 3", "8 * (3 + 2) - 4"};
-    int num_ejemplos = 5;
-
-    for (int i = 0; i < num_ejemplos; i++) {
-        yyin = fmemopen(ejemplos[i], strlen(ejemplos[i]), "r");
-        if (!yyin) {
-            perror("Error al abrir flujo de memoria");
-            continue;
-        }
-
-        start_time = clock();
-        yyparse();
-        end_time = clock();
-        
-        execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
-        fprintf(file, "%d %.4f\n", i + 1, execution_time);
-        fclose(yyin);
-    }
-
-    fclose(file);
-
-    // Llamar a Gnuplot para graficar los tiempos
-    FILE *gnuplot = popen("gnuplot -persistent", "w");
-    if (gnuplot) {
-        fprintf(gnuplot, "set title 'Tiempos de Ejecución - Bison'\n");
-        fprintf(gnuplot, "set xlabel 'Expresiones'\n");
-        fprintf(gnuplot, "set ylabel 'Tiempo (ms)'\n");
-        fprintf(gnuplot, "set grid\n");
-        fprintf(gnuplot, "plot 'bison_tiempos.txt' using 1:2 with linespoints title 'Bison'\n");
-        pclose(gnuplot);
-    } else {
-        perror("No se pudo abrir Gnuplot");
-    }
-
+int yyerror(const char* s) {
+    printf("Cadena no aceptada\n");
     return 0;
 }
+
